@@ -6,12 +6,12 @@ RSpec.describe GPX::Segment do
 
   subject { described_class.new("spec/files/#{file}.gpx", pause_length: pause_length) }
 
-  describe '#rewrite' do
+  describe '#split' do
     context 'for a simple file' do
       let(:file) { 'simple' }
 
       it 'splits track points into segments' do
-        subject.rewrite
+        subject.split
         expect(subject.doc).to be_equivalent_to(expected)
       end
     end
@@ -20,7 +20,7 @@ RSpec.describe GPX::Segment do
       let(:file) { 'multiple_trksegs' }
 
       it 'splits track points into segments' do
-        subject.rewrite
+        subject.split
         expect(subject.doc).to be_equivalent_to(expected)
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe GPX::Segment do
       let(:file) { 'multiple_tracks' }
 
       it 'splits track points into segments' do
-        subject.rewrite
+        subject.split
         expect(subject.doc).to be_equivalent_to(expected)
       end
     end

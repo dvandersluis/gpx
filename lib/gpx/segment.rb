@@ -9,7 +9,7 @@ module GPX
       @pause_length = pause_length
     end
 
-    def rewrite
+    def split
       doc.css('trk').each do |trk|
         trk.css('trkseg').each do |trkseg|
           extract_segments(trkseg).each do |points|
