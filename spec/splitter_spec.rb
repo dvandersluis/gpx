@@ -1,4 +1,4 @@
-RSpec.describe GPX::Segment do
+RSpec.describe GPX::Splitter do
   let(:pause_length) { 5 }
   let(:expected) do
     File.open("spec/files/#{file}_expected.gpx") { |f| Nokogiri::XML(f) }

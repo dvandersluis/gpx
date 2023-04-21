@@ -1,7 +1,9 @@
 require 'time'
 
 module GPX
-  class Segment
+  class Splitter
+    # Look for pauses in a GPX file and wrap them in <trkseg> tags.
+
     attr_reader :filename, :doc, :pause_length
 
     def initialize(file, pause_length: 5)
