@@ -11,18 +11,18 @@ module GPX
 
     def rewrite
       doc.css('trk').each do |trk|
-        segments = extract_segments(trk)
+        trk.css('trkseg').each do |trkseg|
+          extract_segments(trkseg).each do |points|
+            next if points.empty?
 
-        trk.css('trkseg').each(&:remove)
+            new_node = trkseg.add_previous_sibling('<trkseg />').first
 
-        segments.each do |points|
-          next if points.empty?
-
-          trkseg = trk.add_child('<trkseg />').first
-
-          points.each do |point|
-            trkseg.add_child(point)
+            points.each do |point|
+              new_node.add_child(point)
+            end
           end
+
+          trkseg.remove
         end
       end
 

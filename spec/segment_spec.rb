@@ -16,6 +16,15 @@ RSpec.describe GPX::Segment do
       end
     end
 
+    context 'with multiple <trkseg>s' do
+      let(:file) { 'multiple_trksegs' }
+
+      it 'splits track points into segments' do
+        subject.rewrite
+        expect(subject.doc).to be_equivalent_to(expected)
+      end
+    end
+
     context 'with multiple <trk>s' do
       let(:file) { 'multiple_tracks' }
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxdata="http://www.cluetrust.com/XML/GPXDATA/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.cluetrust.com/XML/GPXDATA/1/0 http://www.cluetrust.com/Schemas/gpxdata10.xsd" version="1.1" creator="http://ridewithgps.com/">
+  <metadata>
+    <name>04/20/23</name>
+    <link href="https://ridewithgps.com/trips/39423942032">
+      <text>04/20/23</text>
+    </link>
+    <time>2023-04-20T12:53:37Z</time>
+  </metadata>
+  <trk>
+    <name>04/20/23</name>
+    <trkseg>
+      <trkpt lat="43.9918118" lon="79.9396893">
+        <ele>194.6143084</ele>
+        <time>2023-04-20T16:53:37Z</time>
+      </trkpt>
+    </trkseg>
+    <trkseg>
+      <trkpt lat="43.9918056" lon="79.939694">
+        <ele>194.5579022</ele>
+        <time>2023-04-20T16:53:39Z</time>
+        <extensions>
+          <gpxdata:hr>57</gpxdata:hr>
+        </extensions>
+      </trkpt>
+      <trkpt lat="43.9918036" lon="79.9396926">
+        <ele>194.2247341</ele>
+        <time>2023-04-20T16:54:41Z</time>
+        <extensions>
+          <gpxdata:hr>54</gpxdata:hr>
+        </extensions>
+      </trkpt>
+      <trkpt lat="43.9917964" lon="79.9397209">
+        <ele>194.2027426</ele>
+        <time>2023-04-20T16:54:42Z</time>
+        <extensions>
+          <gpxdata:hr>53</gpxdata:hr>
+        </extensions>
+      </trkpt>
+      <trkpt lat="43.9917934" lon="79.9397383">
+        <ele>194.2001028</ele>
+        <time>2023-04-20T16:54:44Z</time>
+        <extensions>
+          <gpxdata:hr>53</gpxdata:hr>
+        </extensions>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
