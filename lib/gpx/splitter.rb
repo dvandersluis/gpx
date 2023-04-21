@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'time'
 
 module GPX
@@ -16,17 +18,7 @@ module GPX
     def split
       doc.css('trk').each do |trk|
         trk.css('trkseg').each do |trkseg|
-          extract_segments(trkseg).each do |points|
-            next if points.empty?
-
-            new_node = trkseg.add_previous_sibling('<trkseg />').first
-
-            points.each do |point|
-              new_node.add_child(point)
-            end
-          end
-
-          trkseg.remove
+          split_trkseg(trkseg)
         end
       end
 
@@ -57,6 +49,20 @@ module GPX
       end
     end
 
+    def split_trkseg(trkseg)
+      extract_segments(trkseg).each do |points|
+        next if points.empty?
+
+        new_node = trkseg.add_previous_sibling('<trkseg />').first
+
+        points.each do |point|
+          new_node.add_child(point)
+        end
+      end
+
+      trkseg.remove
+    end
+
     def count_nodes(doc)
       [
         doc.css('trkpt').count,
@@ -73,17 +79,17 @@ module GPX
       verify_trk_count(*trk)
     end
 
-    def verify_trkpt_count(a, b)
-      raise InvalidSplit, "trkpt count changed from #{a} to #{b}" if a != b
+    def verify_trkpt_count(oldval, newval)
+      raise InvalidSplit, "trkpt count changed from #{oldval} to #{newval}" if oldval != newval
     end
 
-    def verify_trkseg_count(a, b)
+    def verify_trkseg_count(oldval, newval)
       # There can be more <trkseg>s but not fewer
-      raise InvalidSplit, "trkseg count changed from #{a} to #{b}" if a > b
+      raise InvalidSplit, "trkseg count changed from #{oldval} to #{newval}" if oldval > newval
     end
 
-    def verify_trk_count(a, b)
-      raise InvalidSplit, "trk count changed from #{a} to #{b}" if a != b
+    def verify_trk_count(oldval, newval)
+      raise InvalidSplit, "trk count changed from #{oldval} to #{newval}" if oldval != newval
     end
 
     def time(node)

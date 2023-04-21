@@ -1,18 +1,21 @@
+# frozen_string_literal: true
+
 RSpec.describe GPX::Splitter do
+  subject(:doc) { splitter.doc }
+
+  let(:splitter) { described_class.new("spec/files/#{file}.gpx", pause_length: pause_length) }
   let(:pause_length) { 5 }
   let(:expected) do
     File.open("spec/files/#{file}_expected.gpx") { |f| Nokogiri::XML(f) }
   end
 
-  subject { described_class.new("spec/files/#{file}.gpx", pause_length: pause_length) }
-
   describe '#split' do
-    context 'for a simple file' do
+    context 'with a simple file' do
       let(:file) { 'simple' }
 
       it 'splits track points into segments' do
-        subject.split
-        expect(subject.doc).to be_equivalent_to(expected)
+        splitter.split
+        expect(doc).to be_equivalent_to(expected)
       end
     end
 
@@ -20,8 +23,8 @@ RSpec.describe GPX::Splitter do
       let(:file) { 'multiple_trksegs' }
 
       it 'splits track points into segments' do
-        subject.split
-        expect(subject.doc).to be_equivalent_to(expected)
+        splitter.split
+        expect(doc).to be_equivalent_to(expected)
       end
     end
 
@@ -29,8 +32,8 @@ RSpec.describe GPX::Splitter do
       let(:file) { 'multiple_tracks' }
 
       it 'splits track points into segments' do
-        subject.split
-        expect(subject.doc).to be_equivalent_to(expected)
+        splitter.split
+        expect(doc).to be_equivalent_to(expected)
       end
     end
   end
