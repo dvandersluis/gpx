@@ -10,10 +10,10 @@ module GPX
     end
 
     def rewrite
-      doc.css('trk').find_all.each do |trk|
+      doc.css('trk').each do |trk|
         segments = extract_segments(trk)
 
-        trk.css('trkseg').find_all.each(&:remove)
+        trk.css('trkseg').each(&:remove)
 
         segments.each do |points|
           next if points.empty?
@@ -41,6 +41,7 @@ module GPX
 
     def extract_segments(node)
       trkpts = node.css('trkpt')
+      return [trkpts] if trkpts.one?
 
       trkpts.each_cons(2).with_object([[]]) do |(a, b), memo|
         memo.last << a
