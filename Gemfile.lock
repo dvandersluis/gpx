@@ -4,12 +4,17 @@ GEM
     ast (2.4.2)
     coderay (1.1.3)
     diff-lcs (1.5.0)
+    equivalent-xml (0.6.0)
+      nokogiri (>= 1.4.3)
     json (2.6.3)
     method_source (1.0.0)
     mini_portile2 (2.8.1)
     nokogiri (1.14.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nokogiri-diff (0.2.0)
+      nokogiri (~> 1.5)
+      tdiff (~> 0.3, >= 0.3.2)
     parallel (1.23.0)
     parser (3.2.2.0)
       ast (~> 2.4.1)
@@ -54,6 +59,7 @@ GEM
       rubocop (~> 1.33)
       rubocop-capybara (~> 2.17)
     ruby-progressbar (1.13.0)
+    tdiff (0.3.4)
     unicode-display_width (2.4.2)
     zeitwerk (2.6.7)
 
@@ -61,7 +67,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  equivalent-xml
   nokogiri
+  nokogiri-diff
   pry
   rspec
   rubocop
