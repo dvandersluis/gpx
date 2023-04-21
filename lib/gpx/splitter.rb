@@ -4,11 +4,12 @@ module GPX
   class Splitter
     # Look for pauses in a GPX file and wrap them in <trkseg> tags.
 
-    attr_reader :filename, :doc, :pause_length
+    attr_reader :filename, :doc, :orig_stats, :pause_length
 
     def initialize(file, pause_length: 5)
       @filename = file
       @doc = File.open(@filename) { |f| Nokogiri::XML(f) }
+      @orig_stats = count_nodes(@doc)
       @pause_length = pause_length
     end
 
@@ -28,6 +29,8 @@ module GPX
           trkseg.remove
         end
       end
+
+      verify!(doc)
 
       true
     end
@@ -52,6 +55,35 @@ module GPX
         memo << [] if time(b) - time(a) > pause_length
         memo.last << b
       end
+    end
+
+    def count_nodes(doc)
+      [
+        doc.css('trkpt').count,
+        doc.css('trkseg').count,
+        doc.css('trk').count
+      ]
+    end
+
+    def verify!(doc)
+      trkpt, trkseg, trk = orig_stats.zip(count_nodes(doc))
+
+      verify_trkpt_count(*trkpt)
+      verify_trkseg_count(*trkseg)
+      verify_trk_count(*trk)
+    end
+
+    def verify_trkpt_count(a, b)
+      raise InvalidSplit, "trkpt count changed from #{a} to #{b}" if a != b
+    end
+
+    def verify_trkseg_count(a, b)
+      # There can be more <trkseg>s but not fewer
+      raise InvalidSplit, "trkseg count changed from #{a} to #{b}" if a > b
+    end
+
+    def verify_trk_count(a, b)
+      raise InvalidSplit, "trk count changed from #{a} to #{b}" if a != b
     end
 
     def time(node)
