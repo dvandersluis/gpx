@@ -2,10 +2,11 @@ require 'time'
 
 module GPX
   class Segment
-    attr_reader :doc, :pause_length
+    attr_reader :filename, :doc, :pause_length
 
     def initialize(file, pause_length: 5)
-      @doc = File.open(file) { |f| Nokogiri::XML(f) }
+      @filename = file
+      @doc = File.open(@filename) { |f| Nokogiri::XML(f) }
       @pause_length = pause_length
     end
 
@@ -29,8 +30,9 @@ module GPX
       true
     end
 
-    def write(out)
+    def write(out = default_out_name)
       File.write(out, to_s)
+      out
     end
 
     def to_s
@@ -52,6 +54,11 @@ module GPX
 
     def time(node)
       Time.parse(node.css('time').text)
+    end
+
+    def default_out_name
+      filename_without_ext = File.join(File.dirname(filename), File.basename(filename, '.gpx'))
+      "#{filename_without_ext}_split_#{Time.now.to_i}.gpx"
     end
   end
 end
