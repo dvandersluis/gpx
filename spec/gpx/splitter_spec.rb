@@ -6,7 +6,7 @@ RSpec.describe GPX::Splitter do
   let(:splitter) { described_class.new("spec/files/#{file}.gpx", pause_length: pause_length) }
   let(:pause_length) { 5 }
   let(:expected) do
-    File.open("spec/files/#{file}_expected.gpx") { |f| Nokogiri::XML(f) }
+    File.open("spec/files/#{file}_split.gpx") { |f| Nokogiri::XML(f) }
   end
 
   describe '#split' do
